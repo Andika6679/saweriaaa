@@ -42,13 +42,12 @@ app.post("/saweria-webhook", (req, res) => {
 app.get("/roblox-poll", (req, res) => {
   const secret = req.headers["x-roblox-secret"];
 
-  // Proteksi sederhana dengan secret key
-  if (secret !== process.env.ROBLOX_SECRET || "GANTI_SECRET_INI") {
+  if (secret !== process.env.ROBLOX_SECRET) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
   const toSend = [...pendingDonations];
-  pendingDonations = []; // Kosongkan setelah dikirim
+  pendingDonations = [];
 
   res.json({ donations: toSend });
 });
